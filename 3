@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <math.h>
+#include <conio.h>
+
+struct {
+	float real;
+	float imag;
+}typedef comp;
+
+void print(comp c);
+
+int main() {
+	comp y1, y2, y3;
+	float a, b, c, p, q, d, u, viraz_u, v, x;
+	double pi = 3.14159265358979323846;
+	printf("x3 + ax2 + bx + c = 0\n");
+
+	printf("input a: ");
+	if (!scanf_s("%f", &a))
+	{
+		printf("a ne vernoe");
+		return 0;
+	}
+
+	printf("input b: ");
+	if (!scanf_s("%f", &b))
+	{
+		printf("b ne vernoe");
+		return 0;
+	}
+
+	printf("input c: ");
+	if (!scanf_s("%f", &c))
+	{
+		printf("c ne vernoe");
+		return 0;
+	}
+
+
+	p = b - a * a / 3;
+	q = 2 * pow(a, 3) / 27 - (a * b) / 3 + c;
+	d = p * p * p / 27 + q * q / 4;
+	viraz_u = -q / 2 + sqrtf(d);
+	u = (viraz_u > 0) ? (pow(viraz_u, 1 / 3.)) : (pow(fabs(viraz_u), 1 / 3.) * -1);
+	v = -p / 3 * u;
+
+	if (d > 0) {
+
+		y1.real = u + v;
+		y1.imag = 0;
+		y2.real = -(u + v) / 2;
+		y2.imag = sqrtf(3) * (u - v) / 2;
+		y3.real = -(u + v) / 2;
+		y3.imag = -sqrtf(3) * (u - v) / 2;
+		printf("y1 = ");
+		print(y1);
+		printf("\n");
+		printf("y2 = ");
+		print(y2);
+		printf("\n");
+		printf("y3 = ");
+		print(y3);
+
+	}
+	else if (d == 0) {
+		y1.real = (3 * q) / p;
+		y2.real = -(3 * q) / (2 * p);
+		printf("y1 = ");
+		print(y1);
+		printf("\n");
+		printf("y2 = y3 = ");
+		print(y2);
+	}
+	else if (d < 0) {
+		if (-p * p * p / 27 >= 0) {
+			float r = sqrtf(-p * p * p / 27);
+			float f = acos(-q / 2 * r);
+			y1.imag = 2 * fabs(pow(r, 1. / 3)) * cos(f / 3);
+			y2.imag = 2 * fabs(pow(r, 1. / 3)) * cos((f + 2 * pi) / 3);
+			y3.imag = 2 * fabs(pow(r, 1. / 3)) * cos((f + 4 * pi)/ 3);
+			printf("y1 = ");
+			print(y1);
+			printf("\n");
+			printf("y2 = ");
+			print(y2);
+			printf("\n");
+			printf("y3 = ");
+			print(y3);
+		}
+		else
+			return 0;
+	}
+
+	
+	
+	_getch();
+	return 0;
+
+}
+
+void print(comp c) {
+	printf("%f ", c.real);
+		if (c.imag >= 0) {
+			printf("+ %fi", c.imag);
+		}
+		else 
+		printf("- %fi", c.imag);
+}
